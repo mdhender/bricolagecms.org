@@ -11,8 +11,17 @@ checked out is rendered site output, not the project that produced it: ~470
 under `docs/`, and 60 release tarballs under `downloads/`.
 
 The pages were themselves emitted by Bricolage (`<meta name="generator"
-content="Bricolage 2.0.0" />`); the templates and database behind them are not
-here, and nothing in this repo regenerates the HTML.
+content="Bricolage 2.0.0" />`), and nothing in this repo regenerates them. The
+story content exists nowhere but in the captured HTML.
+
+Templates are a partial exception, and an easy one to misread. The
+`downloads/bricolage.cc-*.tar.gz` releases hold the Mason templates and
+`bric_soap` XML that built the project's *earlier* site at bricolage.cc
+(2004–2006). They are not the templates behind this capture, which came from a
+2010 Blueprint-CSS redesign four years later: the 2006 templates never mention
+`main-nav`, `blueprint`, or `bricolagecms`, reference `bricolage.cc` in 54
+files, and emit a different page shell (`div#all`, `body.withsidebar`,
+`/ui/css/screen.css`). Treat them as ancestors, not as sources for these pages.
 
 Bricolage's own source *is* present, but only compressed inside the release
 archives — `bricolage-2.0.1.tar.gz` holds `lib/Bric/**` (the modules `docs/`
@@ -61,8 +70,12 @@ are relative, so `file://` browsing mostly works too.
   `podsite.css`/`podsite.js`), and `docs/devel/api/` (stub). `docs/2.0/api` is
   missing its `podsite.css`/`podsite.js`, so it renders unstyled.
 - `downloads/` — 103 MB of historical release archives fetched along with the
-  pages: 55 `bricolage-*.tar.gz` (1.0.1 → 2.0.1) and 5 `bricolage.cc-*.tar.gz`.
-  Each is a full Perl source distribution. Read one with `tar tzf` / `tar xzf -O`
+  pages. 55 `bricolage-*.tar.gz` (1.0.1 → 2.0.1) are full Perl source
+  distributions of the CMS. The 5 `bricolage.cc-*.tar.gz` (1.00 → 1.4,
+  2004–2006, tens of KB each) are something different: the element types,
+  output channels, categories, and Mason templates used to build the project's
+  own website, with `xml/` exports meant for `bric_soap` import. They contain
+  no story or media content. Read any of them with `tar tzf` / `tar xzf -O`
   rather than unpacking into the tree.
 - `CREDITS.md`, `LICENSE.md`, `SOURCES.md` — upstream Bricolage project files
   (contributor list, the Bric::License POD, and icon-set licensing).
